@@ -1328,9 +1328,7 @@ async function network(){
             case 'PRIVATE':
                 alert('温馨提示：您的本体钱包连接的是私人网络！\n请切换到主网或者测试网！');
                 break; 
-            case 'MAIN':
-                alert('主网');
-                break; 
+
             
         }
     } catch(e) {
