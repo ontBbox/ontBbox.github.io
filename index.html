@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>币Box 一款结合发币、空投和糖果盒子功能的代币钱包</title>
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+	<meta content="telephone=no" name="format-detection" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/dialog.css" rel="stylesheet">
+    <link href="css/candy.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/tab.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="./lib/mDialogMin.js"></script>
+    <script type="text/javascript" src="./lib/browser.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    
+</head>
+<body id='walletBody' onload="loadWallet()"  style="width:414px; margin: 0 auto; border: 1px solid #D6D6D6">
+<!-- <body >  -->
+
+<section class="aui-flexView">
+	<header class="aui-navBar aui-navBar-fixed b-line">
+        <a href="javascript:;" class="aui-navBar-item" onclick="location.reload()">
+            <i class="aui-icon-img">
+                <img src="images/user-logo-000.png" alt="">
+            </i>
+        </a>
+        <div class="aui-center">
+            <div class="aui-search-box">
+                <i class="icon icon-search"></i>
+                <input id="tokenSearch" type="text" placeholder="BBOX">
+            </div>
+        </div>
+        <a href="javascript:;" class="aui-navBar-item">
+            <!-- <i class="icon icon-sao"></i>
+            <i class="icon icon-code"></i> -->
+            <img src="images/wechat.png" onclick="showWechat()" alt="" style="width: 40px; height: 40px; display: block;">
+            <img src="images/telegrame.png" onclick="showTelegrame()"alt="" style="width: 40px; height: 40px; display: block;">
+        </a>
+	</header>
+	<section class="aui-scrollView">
+        <div class="aui-conduct-color">
+            <div class="aui-loan-head">
+                <div class="aui-flex">
+                    <div class="aui-flex-box-head">
+                        <h1>账户余额</h1>
+                        <h2>
+                            <span id="ont_head"></span>
+                            <span style="font-size: 1.5rem">ONT</span>
+                        </h2>
+                        <span>
+                            <em id="account"></em>
+                        </span>
+                    </div>
+                    <!-- <div class="aui-loan-button">
+                        <button >切换账户</button>
+                    </div> -->
+                </div>
+            </div>
+            
+            <div class="aui-loan-title">
+                <a href="javascript:;" class="aui-flex fabi" onclick="issue()" style="margin-right: 6%">
+                        <div class="aui-flex-box" >
+                            <h3>一键发币</h3>
+                        </div>
+                    </a>
+                <a href="javascript:;" class="aui-flex kongtou" onclick="airDrop()" style="margin-right: 6%">
+                    <div class="aui-flex-box">
+                        <h3>空投糖果</h3>
+                    </div>
+                </a>
+                <a href="candy.html" class="aui-flex tangguo" >
+                    <div class="aui-flex-box">
+                        <h3>糖果盒子</h3>
+                    </div>
+                </a>
+            </div>
+
+			<div class="aui-conduct-cell">
+				<div class="aui-flex">
+					<div class="aui-flex-box">
+                        <h1>Token</h1>
+                    </div>
+                    <!-- <div class="aui-center">
+                        <div class="aui-search-box">
+                            <i class="icon icon-search"></i>
+                            <input type="text" placeholder="BBOX">
+                        </div>
+                    </div> -->
+                </div>
+				<div class="divHeight"></div> 
+            </div>
+            <div id="TokenList">
+                <div id="ONT" class="aui-conduct-cell">
+                    <div class="aui-conduct-list">
+                        <a href="javascript:;">
+                            <p>币种</p>
+                            <h4>ONT</h4>
+                        </a>
+                        <a href="javascript:;">
+                            <p>余额</p>
+                            <h4 id="balance_ont"></h4>
+                        </a>
+                        <a href="javascript:;" onclick="transfer('ONT', '')">
+                            <div class="aui-loan-button">
+                                <button>转账</button>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="divHeight"></div>
+                </div>
+                <div id="ONG" class="aui-conduct-cell">
+                    <div class="aui-conduct-list">
+                        <a href="javascript:;">
+                            <p>币种</p>
+                            <h4>ONG</h4>
+                        </a>
+                        <a href="javascript:;">
+                            <p>余额</p>
+                            <h4  id="balance_ong"></h4>
+                        </a>
+                        <a href="javascript:;"  onclick="transfer('ONG', '')">
+                            <div class="aui-loan-button">
+                                <button>转账</button>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="divHeight"></div>
+                </div>
+            </div>
+		</div>
+
+
+	<div class="aui-footer-text">
+		<button onclick="add()">添加Token</button>
+		<p id='loadAlert'>正在从链上加载数据，请稍等...</p>
+	</div>
+	</section>
+	<!-- <footer class="aui-footer aui-footer-fixed">
+		<a href="javascript:;" class="aui-tabBar-item aui-tabBar-item-active">
+                    <span class="aui-tabBar-item-icon">
+                        <i class="icon icon-loan"></i>
+                    </span>
+			<span class="aui-tabBar-item-text">首页</span>
+		</a>
+		<a href="javascript:;" class="aui-tabBar-item ">
+                    <span class="aui-tabBar-item-icon">
+                        <i class="icon icon-credit"></i>
+                    </span>
+			<span class="aui-tabBar-item-text">资讯</span>
+		</a>
+		<a href="javascript:;" class="aui-tabBar-item ">
+                    <span class="aui-tabBar-item-icon">
+                        <i class="icon icon-ions"></i>
+                    </span>
+			<span class="aui-tabBar-item-text">我的</span>
+		</a>
+    </footer> -->
+</section>
+<script>
+        if (isPC() == false) {
+           document.getElementById('walletBody').style = ""
+        } 
+</script>
+</body>
+</html>

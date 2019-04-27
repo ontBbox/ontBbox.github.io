@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>币Box 一款结合发币、空投和糖果盒子功能的代币钱包</title>
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
+        <meta content="yes" name="apple-mobile-web-app-capable"/>
+        <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="css/dialog.css" rel="stylesheet">
+        <link href="css/candy.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/tab.js"></script>
+        <script type="text/javascript" src="./lib/mDialogMin.js"></script>
+        <script type="text/javascript" src="./lib/browser.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+
+    </head>
+    <body id="candyBody" onload="loadCandy()" style="width:414px; margin: 2px auto; border: 1px solid #D6D6D6">
+
+        <section class="aui-flexView">
+            <header class="aui-navBar aui-navBar-fixed">
+                
+                <a href="index.html" class="aui-navBar-item">
+                    <i class="aui-icon-img">
+                        <!-- <img src="images/user-logo-000.png" alt=""> -->
+                        <img src="images/back.png" alt="">
+                    </i>
+                </a>
+                <div class="aui-center">
+                    <div class="aui-search-box">
+                        <i class="icon icon-search"></i>
+                        <input id="candySearch" type="text" placeholder="BBOX">
+                    </div>
+                </div>
+                <a href="javascript:;" class="aui-navBar-item">
+                    <!-- <i class="icon icon-sao"></i>
+                    <i class="icon icon-code"></i> -->
+                    <img src="images/wechat.png" onclick="showWechat()" alt="" style="width: 40px; height: 40px; display: block;">
+                    <img src="images/telegrame.png" onclick="showTelegrame()"  alt="" style="width: 40px; height: 40px; display: block;">  
+                </a>
+            </header>
+            <section class="aui-scrollView">
+                <div class="aui-flex">
+                    <div class="aui-flex-box">
+                        <h2>HI, 欢迎领取糖果</h2>
+                        <p id="account"></p>
+                    </div>
+                    <!-- <div class="aui-button">
+                        <button>登录</button>
+                    </div> -->
+                </div>
+                <div id='candyBox' class="aui-pre-box">
+                    
+                </div>
+                <div class="aui-footer-text">
+                    <p id='loadAlert'>正在从链上加载数据，请稍等...</p>
+                </div>
+                <div style="height:70px;"></div>
+            </section>
+        </section>
+
+        <script>
+                if (isPC() == false) {
+                   document.getElementById('candyBody').style = ""
+                } 
+        </script>
+    </body>
+</html>
