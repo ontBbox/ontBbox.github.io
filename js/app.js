@@ -6,7 +6,7 @@ var ParameterType = dApi.ParameterType;
 client.registerClient({});
 
 var CONTRACT_HASH = 'dbd832c215029b1a32ab664c73b402467f0dcecf'
-var BBOX_HASH = 'bf9934fedcff8260ff1c92a2f24599d659b2febd'
+var BBOX_HASH = '1f9de81f6f7824f7101fe0d8ca303fb8081683df'
 var ACCOUNT;
 var ONT;
 var ONG;
@@ -1297,7 +1297,7 @@ function floatOrInt(number) {
 }
 
 function showWechat() {
-    Dialog.init('<img src="images/ewm.png" width="100%">',{
+    Dialog.init('<img src="images/wechatewm.png" width="100%">',{
         title : '扫面二维码加入微信群',
         button : {
             确定 : function(){Dialog.close(this);}
@@ -1306,12 +1306,40 @@ function showWechat() {
 }
 
 function showTelegrame() {
-    Dialog.init('<img src="images/ewm.png" width="100%">',{
+    Dialog.init('<img src="images/telegrameewm.png" width="100%">',{
         title : '扫面二维码加入电报群',
         button : {
             确定 : function(){Dialog.close(this);}
         }
     });
+}
+
+async function network(){
+    try {
+        let provider = await client.api.provider.getProvider();
+        console.log(provider)
+        let network = await client.api.network.getNetwork();
+        let type = network.type
+        console.log(type)
+        switch(type){
+            case 'TEST':
+                alert('温馨提示：您的本体钱包链接的是测试网络！');
+                break;
+            case 'PRIVATE':
+                alert('温馨提示：您的本体钱包连接的是私人网络！\n请切换到主网或者测试网！');
+                break; 
+            case 'MAIN':
+                alert('主网');
+                break; 
+            
+        }
+    } catch(e) {
+        console.log(e)
+        alert('使用本程序，请先安装本体钱包插件！\n钱包安装说明：\nhttps://dev-docs.ont.io/#/docs-cn/cyano/00-overview')
+    }
+    
+    
+
 }
 
 $(function(){  
@@ -1357,6 +1385,4 @@ $(function(){
     }); 
 })
 
-let result = isPC()
-console.log(result)
-
+network()
